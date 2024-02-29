@@ -10,10 +10,7 @@ interface UserRequest {
 class CreateUserService {
   async execute({ name, email, password }: UserRequest) {
     // verificar se ele enviou um email
-    console.log(name);
-    console.log(email);
-    console.log(password);
-    if (!email) {
+     if (!email) {
       throw new Error("Email incorrect");
     }
 
