@@ -2,11 +2,14 @@ import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import cors from "cors";
 import path from "path";
-
+import * as bodyParser from "body-parser";
 import { router } from "./routes";
 
 const app = express();
-app.use(express.json());
+// Configurar o body-parser aqui
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cors());
 
 app.use(router);
