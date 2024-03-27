@@ -1,26 +1,25 @@
-// printerUtils.ts
 import {
   ThermalPrinter,
   PrinterTypes,
   CharacterSet,
   BreakLine,
-} from 'node-thermal-printer';
+} from "node-thermal-printer";
 
 async function printOrderDetails(orders: any[]) {
   let printer = new ThermalPrinter({
     type: PrinterTypes.STAR,
-    interface: '//localhost/POS58',
+    interface: "//localhost/POS58",
     characterSet: CharacterSet.PC852_LATIN2,
     removeSpecialCharacters: false,
     lineCharacter: "=",
     breakLine: BreakLine.WORD,
     options: {
-      timeout: 5000
-    }
+      timeout: 5000,
+    },
   });
   let total = 0; // Variável para armazenar o total
   let isConnected = await printer.isPrinterConnected();
-  console.log('Is Printer Connected:', isConnected);
+  console.log("Is Printer Connected:", isConnected);
   printer.cut();
   printer.alignCenter();
   printer.println("Sorveteria Pimpolhos");
@@ -32,11 +31,10 @@ async function printOrderDetails(orders: any[]) {
     const { product } = order;
     const itemPrice = parseFloat(product.price); // Preço do produto
     total += itemPrice; // Adiciona o preço do produto ao total
-  
-    printer.println(`${product.name} - R$ ${itemPrice.toFixed(2)}`);
 
+    printer.println(`${product.name} - R$ ${itemPrice.toFixed(2)}`);
   });
-  console.log(orders)
+  console.log(orders);
   printer.println(`Total do Pedido: R$ ${total.toFixed(2)}`);
   printer.println("===============");
   printer.cut();
